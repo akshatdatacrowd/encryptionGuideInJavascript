@@ -1,3 +1,5 @@
 mongo.js
-node_modules
+
+/node_modules
+
 CriticalIncidentSchema.js
