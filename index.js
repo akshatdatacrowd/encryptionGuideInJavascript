@@ -1,8 +1,13 @@
-const loading = require("loading-cli");
-//  run the loading animation for 2 seconds
+/* -------------------------------------------------------------------------- 
 
+----------------------------Encryption Beginner Guide---------------------------- 
+
+-------------------------------------------------------------------------- */
+
+
+
+const loading = require("loading-cli"); /* <--- external package ---> */
 const load = loading("Loading...").start();
-
 setTimeout(() => {
   console.clear();
   load.succeed("Loading completed successfully!");
@@ -15,51 +20,56 @@ setTimeout(() => {
 
     // print hello world in different encryptions
     // <----------- One Way Encryption Methods ------------>
-    const crypto = require("crypto");
+    const crypto = require("crypto"); /* <--- external package ---> */
 
     // sha256 encryption
     const hash = crypto.createHash("sha256");
-    hash.update("hello world");
+    hash.update('I love you');
     console.log("HASH sha256 : " + hash.digest("hex") + "\n");
 
     // sha512 encryption
     const hash2 = crypto.createHash("sha512");
-    hash2.update("hello world");
+    hash2.update('I love you');
     console.log("HASH sha512 : " + hash2.digest("hex") + "\n");
 
     // sha1 encryption
     const hash3 = crypto.createHash("sha1");
-    hash3.update("hello world");
+    hash3.update('I love you');
     console.log("HASH sha1 : " + hash3.digest("hex") + "\n");
 
     // md5 encryption
     const hash4 = crypto.createHash("md5");
-    hash4.update("hello world");
+    hash4.update('I love you');
     console.log("HASH md5 : " + hash4.digest("hex") + "\n");
 
     // <----------- Two Way Encryption Methods ------------>
 
     // Base 64----------------
 
+
     // base64 encryption
     console.log(
       "base64 encryption : " +
-        Buffer.from("hello world").toString("base64") +
+        Buffer.from('I love you').toString("base64") +
         "\n"
     );
+
+    console.log(Buffer.from("I Love you"), Buffer.from("I"), Buffer.from("I").toString('ascii'))
 
     // base64 decryption
     console.log(
       "base64 decrypted : " +
-        Buffer.from("aGVsbG8gd29ybGQ=", "base64").toString("ascii") +
+        Buffer.from("SSBsb3ZlIHlvdQ==", "base64").toString("ascii") +
         "\n"
     );
 
+
     // Base 32 -----------------------------
-    const base32 = require("hi-base32");
+    const base32 = require("hi-base32"); /* <--- external package ---> */
+
 
     // base32 encryption
-    console.log("base32 : " + base32.encode("hello world") + "\n");
+    console.log("base32 : " + base32.encode('I love you') + "\n");
 
     // base32 decryption
     console.log(
@@ -71,7 +81,7 @@ setTimeout(() => {
     // base16 encryption
     console.log(
       "base16 encryption  : " +
-        Buffer.from("hello world").toString("hex") +
+        Buffer.from('I love you').toString("hex") +
         "\n"
     );
 
@@ -84,10 +94,10 @@ setTimeout(() => {
 
     // Base 58 -----------------
 
-    const bs58 = require("bs58");
+    const bs58 = require("bs58"); /* <--- external package ---> */
 
     // base58 encryption
-    const buf = Buffer.from("hello world");
+    const buf = Buffer.from('I love you');
     const base58 = bs58.encode(buf);
     console.log("base58 encryption : " + base58 + "\n");
 
@@ -103,10 +113,10 @@ setTimeout(() => {
     //    Some Explanation about AES encryption
     //        AES is a symmetric encryption algorithm, which means that the same key is used for both encryption and decryption.
 
-    const aes = require("aes-js");
+    const aes = require("aes-js"); /* <--- external package ---> */
 
     // AES encryption
-    const text = "hello world";
+    const text = 'I love you';
     const key = "12345678901234567890123456789012";
     const textBytes = aes.utils.utf8.toBytes(text);
 
@@ -138,7 +148,7 @@ setTimeout(() => {
     //        The public key can be shared with anyone, but the private key must be kept secret.
     //        The public key is used to encrypt data, and the private key is used to decrypt data.
 
-    const NodeRSA = require("node-rsa");
+    const NodeRSA = require("node-rsa"); /* <--- external package ---> */
 
     // rsa encryption
 
@@ -147,7 +157,7 @@ setTimeout(() => {
     //  private key is rsa_key.pem;
     const rsa_key = new NodeRSA({ b: 512 });
 
-    const rsa_text = "hello world";
+    const rsa_text = 'I love you';
     const rsa_encrypted = rsa_key.encrypt(rsa_text, "base64");
     console.log("RSA encryption : " + rsa_encrypted + "\n");
 
@@ -155,7 +165,6 @@ setTimeout(() => {
 
     const rsa_decrypted = rsa_key.decrypt(rsa_encrypted, "utf8");
     console.log("RSA decrypted : " + rsa_decrypted + "\n");
-
 
     // <----------- Five Way Encryption Methods ------------>
 
@@ -168,16 +177,16 @@ setTimeout(() => {
     //       The shared secret may also be used as a key to derive one or more additional keys.
     //       how does it work?
     //       The Diffie-Hellman key exchange is based on the following mathematical problem:
-      
+
     //       Given two large prime numbers, p and g, and a secret integer a, compute A = g^a mod p.
     //       Given A, compute the secret integer b, and then compute B = g^b mod p.
     //       Given B, compute the secret integer a, and then compute A = g^a mod p.
     //       If A = B, then the secret integer a = b, and the shared secret is S = A^a mod p = B^b mod p = g^(ab) mod p.
     //       The shared secret is the same for both parties, even though neither party knows the other's secret integer.
-      //    The shared secret is also the same for both parties, even though neither party knows the other's secret integer.
-      
-    // const crypto = require("crypto");
-    
+    //    The shared secret is also the same for both parties, even though neither party knows the other's secret integer.
+
+    // const crypto = require("crypto"); /* <--- external package ---> */
+
     // Diffie-Hellman key exchange
     const alice = crypto.createDiffieHellman(512);
     // createDiffieHellman() method creates and returns a Diffie-Hellman object.
@@ -203,7 +212,10 @@ setTimeout(() => {
     // alice.getGenerator() is the generator number
     // alice.getPublicKey() is the public key
 
-    const bob = crypto.createDiffieHellman(alice.getPrime(), alice.getGenerator());
+    const bob = crypto.createDiffieHellman(
+      alice.getPrime(),
+      alice.getGenerator()
+    );
 
     const bobKey = bob.generateKeys();
     // bobKey is the public key
@@ -211,21 +223,16 @@ setTimeout(() => {
     // bob.getPrime() is the prime number
     // bob.getGenerator() is the generator number
     // bob.getPublicKey() is the public key
-    
-      
+
     const aliceSecret = alice.computeSecret(bobKey);
     const bobSecret = bob.computeSecret(aliceKey);
 
-    console.log("Diffie-Hellman key exchange : " + aliceSecret.toString("hex") + "\n");
-    console.log("Diffie-Hellman key exchange : " + bobSecret.toString("hex") + "\n");
-
-
-
-
-
-
-
-
+    console.log(
+      "Diffie-Hellman key exchange : " + aliceSecret.toString("hex") + "\n"
+    );
+    console.log(
+      "Diffie-Hellman key exchange : " + bobSecret.toString("hex") + "\n"
+    );
 
     // Blowfish Encryption
     //    Some Explanation about Blowfish encryption
@@ -233,33 +240,8 @@ setTimeout(() => {
     //        Blowfish is a fast and secure encryption algorithm.
     //       Blowfish is a variable-length key algorithm, which means that the key can be any length.
 
-
     console.log("\n\n<------------ The End ------- Bye ----->\n\n");
-  }, 1000);
+  }, 100);
 }, 2000);
 
 // <--------------------- End of code ------------------------->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// some nonsense code to make the code look longer
-
